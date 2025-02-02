@@ -14,13 +14,18 @@
 #include <zephyr/device.h>
 #include <zephyr/drivers/pwm.h>
 
+//#include <iostream>
+#include "led.hpp"
+#include "etl/function.h"
 static const struct pwm_dt_spec pwm_led0 = PWM_DT_SPEC_GET(DT_ALIAS(pwm_led0));
 
 #define NUM_STEPS	50U
 #define SLEEP_MSEC	25U
 
+
 int main(void)
 {
+	led_init(1);
 	uint32_t pulse_width = 0U;
 	uint32_t step = pwm_led0.period / NUM_STEPS;
 	uint8_t dir = 1U;
