@@ -14,55 +14,24 @@
 #include <zephyr/device.h>
 #include <zephyr/drivers/pwm.h>
 
+//#include <zephyr/drivers/gpio.h>
+#include <zephyr/sys/util.h>
+#include <zephyr/sys/printk.h>
+#include <inttypes.h>
+
+/** Included from SDK */
+#include <zephyr/logging/log.h>
+#include <zephyr/drivers/uart.h>
+
 //#include <iostream>
-#include "led.hpp"
+#include "drv_led.hpp"
 #include "etl/function.h"
-static const struct pwm_dt_spec pwm_led0 = PWM_DT_SPEC_GET(DT_ALIAS(pwm_led0));
 
-#define NUM_STEPS	50U
-#define SLEEP_MSEC	25U
-
+#define INST_LED0 GPIO_DT_SPEC_GET(DT_ALIAS(led0),gpios)
 
 int main(void)
 {
-	led_init(1);
-	uint32_t pulse_width = 0U;
-	uint32_t step = pwm_led0.period / NUM_STEPS;
-	uint8_t dir = 1U;
-	int ret;
-
-	printk("PWM-based LED fade\n");
-
-	if (!pwm_is_ready_dt(&pwm_led0)) {
-		printk("Error: PWM device %s is not ready\n",
-		       pwm_led0.dev->name);
-		return 0;
-	}
-
-	while (1) {
-		ret = pwm_set_pulse_dt(&pwm_led0, pulse_width);
-		if (ret) {
-			printk("Error %d: failed to set pulse width\n", ret);
-			return 0;
-		}
-		printk("Using pulse width %d%%\n", 100 * pulse_width / pwm_led0.period);
-
-		if (dir) {
-			pulse_width += step;
-			if (pulse_width >= pwm_led0.period) {
-				pulse_width = pwm_led0.period - step;
-				dir = 0U;
-			}
-		} else {
-			if (pulse_width >= step) {
-				pulse_width -= step;
-			} else {
-				pulse_width = step;
-				dir = 1U;
-			}
-		}
-
-		k_sleep(K_MSEC(SLEEP_MSEC));
-	}
+	drv_led drvLed{INST_LED0};
+	drvLed.drv_led_toggle();
 	return 0;
 }
