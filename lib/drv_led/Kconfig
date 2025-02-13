@@ -1,0 +1,16 @@
+mainmenu "Project BLE Peripheral"
+
+source "Kconfig.zephyr"
+
+menu "Drive Led"
+config DRV_LED
+	bool "Enable Led driver"
+	default y
+	help
+	  Enables the Led driver library.
+
+module = DRV_LED
+module-str = Led driver
+source "subsys/logging/Kconfig.template.log_config"
+    
+endmenu

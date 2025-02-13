@@ -1,1 +1,2 @@
 add_subdirectory(drv_led)
+add_subdirectory(drv_ble_peripheral)

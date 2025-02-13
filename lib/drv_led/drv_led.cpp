@@ -1,7 +1,13 @@
+#include <zephyr/shell/shell.h>
+#include <zephyr/version.h>
+#include <zephyr/logging/log.h>
+
 #include "drv_led.hpp"
 #include "etl/function.h"
 
-#if 1
+
+LOG_MODULE_REGISTER(drv_led, LOG_LEVEL_INF);
+
 drv_led::drv_led(const struct gpio_dt_spec& ledInfo):
         _led(ledInfo), rc{0}
 {
@@ -39,4 +45,3 @@ int drv_led::drv_led_toggle(void) {
     if(rc < 0) return rc;
     return 0;
 }
-#endif

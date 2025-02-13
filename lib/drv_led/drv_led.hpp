@@ -1,8 +1,7 @@
 #ifndef DRV_LED_HPP
 #define DRV_LED_HPP
 
-#if 1
-#include <zephyr/kernel.h> // why this is giving error? figure out
+#include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 
 class drv_led {
@@ -17,5 +16,5 @@ class drv_led {
         int drv_led_off(void);
         int drv_led_toggle(void);
 };
-#endif
+
 #endif // DRV_LED_HPP

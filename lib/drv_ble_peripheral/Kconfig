@@ -1,0 +1,20 @@
+mainmenu "Project BLE Peripheral"
+
+menu "BLE Advertise"
+
+config ADVERTISE_URL
+    string "Your choice of website string"
+    default "//arjun.com"
+    help
+        Your website name.
+
+config ADVERTISE_PREFIX
+    int "Prefix to your website"
+    default 23
+    help
+        Prefix for your website (e.g., HTTP default is 23).
+
+endmenu
+
+# Optional logging configuration inclusion (comment out if not needed)
+# source "subsys/logging/Kconfig.template.log_config"
