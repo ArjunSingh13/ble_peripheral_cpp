@@ -14,6 +14,29 @@ config ADVERTISE_PREFIX
     help
         Prefix for your website (e.g., HTTP default is 23).
 
+config COMPANY_ID_CODE
+    int "Nordic's default code"
+    default 83
+    help
+      This is the code that you need to register and get from Bluetooth SIG
+
+config MIN_ADVERTISE_INTERVAL
+    int "Minimum interval time value: n * .625 ms"
+    default 800
+    help
+      Set minimum advertise interval
+
+config MAX_ADVERTISE_INTERVAL
+    int "Maximum interval time for advertise data: n * .625 ms"
+    default 801
+    help
+      Set maximum advertise interval
+
+config CONNECTABLE_PERIPHERAL
+    int "To make Peripheral connectable or not"
+    default 1
+    help
+      Set value to 1 for connectab
 endmenu
 
 # Optional logging configuration inclusion (comment out if not needed)

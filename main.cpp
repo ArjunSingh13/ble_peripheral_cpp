@@ -36,6 +36,7 @@
 #include <stdint.h>
 #include <zephyr/posix/unistd.h>
 
+using namespace ble_adv;
 /** TODO: see if there is a better way than using Macros here */
 #define INST_LED0 GPIO_DT_SPEC_GET(DT_ALIAS(led0),gpios)
 #define INST_LED1 GPIO_DT_SPEC_GET(DT_ALIAS(led1),gpios)
@@ -44,12 +45,14 @@ int main(void)
 {
 	drv_led drvLed0{INST_LED0};
 	drv_led drvLed1{INST_LED1};
-	//ble_adv::
+
 	ble_advertise ble_adver;
 
-
+	uint16_t i = 0;
 	while(1){
-		k_sleep(K_FOREVER);
+		k_sleep(K_SECONDS(5));
+		if(i >= 65535) i = 0;
+		ble_adver.ble_advertise_data(i++);
 	}
 	return 0;
 }
