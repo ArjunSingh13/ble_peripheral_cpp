@@ -2,5 +2,6 @@ menu "Custom Libraries"
 
 rsource "drv_led/Kconfig"
 rsource "drv_ble_peripheral/Kconfig"
+# rsource "drv_button/Kconfig"
 
 endmenu

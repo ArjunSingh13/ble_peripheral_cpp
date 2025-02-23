@@ -15,6 +15,11 @@ class drv_led {
         int drv_led_on(void);
         int drv_led_off(void);
         int drv_led_toggle(void);
+
+        /**
+         * @todo we dont need to follow rule of 6 for this class, we are not going to copy, move. 
+         * so we can Explicitly delete copy and move operations to make intent clear.
+         */
 };
 
 #endif // DRV_LED_HPP

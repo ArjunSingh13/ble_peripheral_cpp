@@ -1,0 +1,16 @@
+mainmenu "Project BLE Peripheral"
+
+source "Kconfig.zephyr"
+
+menu "Drive Led"
+config DRV_BUTTON
+	bool "Enable Led driver"
+	default y
+	help
+	  Enables the push button driver library.
+
+module = DRV_BUTTON
+module-str = Button driver
+source "subsys/logging/Kconfig.template.log_config"
+    
+endmenu

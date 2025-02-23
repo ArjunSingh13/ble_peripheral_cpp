@@ -15,6 +15,7 @@
 #include <version.h>
 #include <stdint.h>
 #include <inttypes.h>
+#include <utility> 	// used for std::move()
 
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
@@ -40,28 +41,14 @@ using namespace ble_adv;
 #define INST_LED0 GPIO_DT_SPEC_GET(DT_ALIAS(led0),gpios)
 #define INST_LED1 GPIO_DT_SPEC_GET(DT_ALIAS(led1),gpios)
 
-struct bt_conn *my_conn = NULL;
-
 int main(void)
 {
 	drv_led drvLed0{INST_LED0};
-	drv_led drvLed1{INST_LED1};
+	drv_led drvLed1{INST_LED1};	
 
-	static auto onConnect = [](struct bt_conn* conn, uint8_t err){
-		if (err) {
-			LOG_ERR("Connection error %d", err);
-			return;
-		}
-		LOG_INF("Connected");
-    	my_conn = bt_conn_ref(conn);
-	 };
+	etl::string<18> address {"FF:EE:DD:CC:BB:AA"};
+	ble_advertise ble_adver(std::move(address));
 
-	static auto onDisconnect = [](struct bt_conn* conn, uint8_t reason){
-		LOG_INF("Disconnected. Reason %d", reason);
-		bt_conn_unref(my_conn);
-	 };
-
-	ble_advertise ble_adver(onConnect, onDisconnect);
 	while(1){
 		k_sleep(K_FOREVER);
 	}
